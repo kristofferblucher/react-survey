@@ -1,18 +1,16 @@
-// Components don't need to be separeted into individual files
-// Here we have a smaller component that helps compose the AnswersItem below
 
 const answersSet = {
-  swimming: "Swimming",
-  bathing: "Bathing",
-  chatting: "Chatting",
-  noTime: "I don't like to spend time with it"
-};
+swimming: "Swimming",
+bathing: "Bathing",
+chatting: "Chatting",
+noTime: "I don`t like to spend time with it",
+}
 
 function ItemsList({ list }) {
   return (
     <ul>
-      {list.map((item) => (
-        <li>{answersSet[item]}</li>
+      {list.map((item, index) => (
+        <li key={index}> {answersSet[item]}</li>
       ))}
     </ul>
   );
@@ -22,8 +20,10 @@ function ItemsList({ list }) {
 export default function AnswersItem({
   // Feel free to change this props names to what suits you best
   // Rememeber here we're destructuring answerItem, which is the prop name that we've passed
-  answerItem: { username, colour, timeSpent, review }
+  // eslint-disable-next-line react/prop-types
+  answerItem: {colour, spendtime, review, username, email },
 }) {
+  
   return (
     <li>
       <article className="answer">
@@ -34,13 +34,18 @@ export default function AnswersItem({
         </p>
         <p>
           <em>How do you like to spend time with your rubber duck?</em>
-          <ItemsList list={timeSpent} />
+          <ItemsList list={spendtime} />
         </p>
         <p>
           <em>What else have you got to say about your rubber duck?</em>
           <span className="answer__line">{review}</span>
         </p>
+        <p>
+          <div>{username} can be contacted on his email, which is:</div>
+          <span className="answer__line">{email}</span>
+        </p>
       </article>
     </li>
   );
 }
+
